@@ -82,7 +82,14 @@ pipeline:
                     connectorRef: harnessdocker
                     image: flowtype/flow-ci:linux-x86_64
                     shell: Sh
-                    command: |-
+                    command: |2-
+                                  if ! [ -x "$(command -v opam)" ]; then
+                                    TMP=${TMPDIR:-/tmp}
+                                    curl -sL -o "$TMP/opam" "https://github.com/ocaml/opam/releases/download/2.0.10/opam-2.0.10-x86_64-macos"
+                                    install -m 755 "$TMP/opam" "/usr/local/bin/opam"
+                                    rm -f "$TMP/opam"
+                                  fi
+
                       .circleci/opam_init.sh
                       make deps
                   when:
