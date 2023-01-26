@@ -74,5 +74,12 @@ pipeline:
                   when:
                     stageStatus: All
                   failureStrategies: []
+              - step:
+                  type: Run
+                  name: Install deps from opam
+                  identifier: Install_deps_from_opam
+                  spec:
+                    shell: Sh
+                    command: make deps
           sharedPaths:
             - /flow
