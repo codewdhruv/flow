@@ -58,6 +58,9 @@ pipeline:
                     bucket: test-flow-cache
                     key: v1-opam-cache-{{ arch }}-{{ checksum ".circleci/opamcachebreaker" }}
                     archiveFormat: Tar
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
               - step:
                   type: Run
                   name: Init opam
@@ -68,5 +71,8 @@ pipeline:
                     shell: Bash
                     command: .circleci/opam_init.sh
                   description: build_js
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
           sharedPaths:
             - /flow
