@@ -81,5 +81,8 @@ pipeline:
                   spec:
                     shell: Sh
                     command: make deps
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
           sharedPaths:
             - /flow
