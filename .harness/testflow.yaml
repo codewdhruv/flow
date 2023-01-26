@@ -1,0 +1,36 @@
+pipeline:
+  name: test-flow
+  identifier: testflow
+  projectIdentifier: NgLabs
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: gitconnectordhruba
+        repoName: flow
+        build: <+input>
+  stages:
+    - stage:
+        name: Build and Test
+        identifier: Build_and_Test
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Init opam
+                  identifier: Init_opam
+                  spec:
+                    shell: Sh
+                    command: .circleci/opam_init.sh
+                  description: build_js
