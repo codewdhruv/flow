@@ -82,7 +82,9 @@ pipeline:
                     connectorRef: harnessdocker
                     image: flowtype/flow-ci:linux-x86_64
                     shell: Sh
-                    command: make deps
+                    command: |-
+                      .circleci/opam_init.sh
+                      make deps
                   when:
                     stageStatus: All
                   failureStrategies: []
