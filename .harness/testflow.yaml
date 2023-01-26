@@ -14,7 +14,6 @@ pipeline:
     - stage:
         name: Build and Test
         identifier: Build_and_Test
-        description: ""
         type: CI
         spec:
           cloneCodebase: true
@@ -63,3 +62,5 @@ pipeline:
                     shell: Bash
                     command: .circleci/opam_init.sh
                   description: build_js
+          sharedPaths:
+            - /flow
