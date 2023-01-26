@@ -28,6 +28,22 @@ pipeline:
             steps:
               - step:
                   type: Run
+                  name: Create cache breaker
+                  identifier: Create_cache_breaker
+                  spec:
+                    shell: Sh
+                    command: .circleci/make_opam_cachebreaker.sh > .circleci/opamcachebreaker
+              - step:
+                  type: RestoreCacheGCS
+                  name: restore-opam-cache
+                  identifier: restoreopamcache
+                  spec:
+                    connectorRef: gcpdhruba
+                    bucket: test-flow-cache
+                    key: v1-opam-cache-{{ arch }}-{{ checksum ".circleci/opamcachebreaker" }}
+                    archiveFormat: Tar
+              - step:
+                  type: Run
                   name: Init opam
                   identifier: Init_opam
                   spec:
