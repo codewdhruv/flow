@@ -79,6 +79,8 @@ pipeline:
                   name: Install deps from opam
                   identifier: Install_deps_from_opam
                   spec:
+                    connectorRef: harnessdocker
+                    image: flowtype/flow-ci:linux-x86_64
                     shell: Sh
                     command: make deps
                   when:
