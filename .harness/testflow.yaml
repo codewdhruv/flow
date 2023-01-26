@@ -28,6 +28,19 @@ pipeline:
             steps:
               - step:
                   type: Run
+                  name: install-opam-mac
+                  identifier: installopammac
+                  spec:
+                    shell: Sh
+                    command: |2-
+                                  if ! [ -x "$(command -v opam)" ]; then
+                                    TMP=${TMPDIR:-/tmp}
+                                    curl -sL -o "$TMP/opam" "https://github.com/ocaml/opam/releases/download/2.0.10/opam-2.0.10-x86_64-macos"
+                                    install -m 755 "$TMP/opam" "/usr/local/bin/opam"
+                                    rm -f "$TMP/opam"
+                                  fi
+              - step:
+                  type: Run
                   name: Create cache breaker
                   identifier: Create_cache_breaker
                   spec:
