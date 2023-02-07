@@ -74,7 +74,7 @@ pipeline:
                         opam init --bare --disable-sandboxing --no-setup --yes
                       fi
 
-                      [ -d _opam ] || opam switch create . $(SWITCH) --deps-only --yes
+                      opam switch create . ocaml-base-compiler.4.14.0 --deps-only --yes
                     envVariables:
                       TERM: dumb
                       OPAMYES: "true"
