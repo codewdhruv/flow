@@ -1,0 +1,36 @@
+pipeline:
+  name: flow-build-test
+  identifier: flowbuildtest
+  projectIdentifier: NgLabs
+  orgIdentifier: default
+  tags: {}
+  stages:
+    - stage:
+        name: ounit_test_linux
+        identifier: ounit_test_linux
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Create cache breaker
+                  identifier: Create_cache_breaker
+                  spec:
+                    shell: Sh
+                    command: |
+                      .circleci/make_opam_cachebreaker.sh > .circleci/opamcachebreaker
+  properties:
+    ci:
+      codebase:
+        connectorRef: gitconnectordhruba
+        repoName: flow
+        build: <+input>
