@@ -25,6 +25,8 @@ pipeline:
                   name: Create cache breaker
                   identifier: Create_cache_breaker
                   spec:
+                    connectorRef: harnessdocker
+                    image: flowtype/flow-ci:linux-x86_64
                     shell: Sh
                     command: |
                       .circleci/make_opam_cachebreaker.sh > .circleci/opamcachebreaker
@@ -33,6 +35,8 @@ pipeline:
                   name: Install opam
                   identifier: Install_opam
                   spec:
+                    connectorRef: harnessdocker
+                    image: flowtype/flow-ci:linux-x86_64
                     shell: Sh
                     command: |
                       bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
@@ -44,6 +48,8 @@ pipeline:
                   name: Init opam
                   identifier: Init_opam
                   spec:
+                    connectorRef: harnessdocker
+                    image: flowtype/flow-ci:linux-x86_64
                     shell: Sh
                     command: |
                       .circleci/opam_init.sh
@@ -55,6 +61,8 @@ pipeline:
                   name: install deps from opam
                   identifier: install_deps_from_opam
                   spec:
+                    connectorRef: harnessdocker
+                    image: flowtype/flow-ci:linux-x86_64
                     shell: Sh
                     command: |-
                       #!/bin/bash -eo pipefail
@@ -67,6 +75,8 @@ pipeline:
                   name: Install extra deps from opam
                   identifier: Install_extra_deps_from_opam
                   spec:
+                    connectorRef: harnessdocker
+                    image: flowtype/flow-ci:linux-x86_64
                     shell: Sh
                     command: |-
                       #!/bin/bash -eo pipefail
@@ -79,6 +89,8 @@ pipeline:
                   name: Run tests
                   identifier: Run_tests
                   spec:
+                    connectorRef: harnessdocker
+                    image: flowtype/flow-ci:linux-x86_64
                     shell: Sh
                     command: |-
                       #!/bin/bash -eo pipefail
