@@ -46,8 +46,13 @@ pipeline:
                     connectorRef: harnessdocker
                     image: flowtype/flow-ci:linux-x86_64
                     shell: Sh
-                    command: |
-                      .circleci/opam_init.sh
+                    command: |-
+                      if [ ! -f ~/.opam/from_cache ]; then
+                        rm -rf ~/.opam
+                        opam init --bare --disable-sandboxing --no-setup --yes
+                      fi
+
+                      ls
                     envVariables:
                       TERM: dumb
                       OPAMYES: "true"
