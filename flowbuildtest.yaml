@@ -96,6 +96,7 @@ pipeline:
                     command: |-
                       #!/bin/bash -eo pipefail
                       .circleci/opam_init.sh
+                      opam switch
                       opam exec -- make ounit-tests-ci
                     envVariables:
                       TERM: dumb
