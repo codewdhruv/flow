@@ -74,10 +74,10 @@ pipeline:
                     connectorRef: harnessdocker
                     image: flowtype/flow-ci:linux-x86_64
                     shell: Sh
-                    command: |-
+                    command: |
                       #!/bin/bash -eo pipefail
                       .circleci/opam_init.sh
-                      opam install ounit2.2.2.4 
+                      opam install ounit2.2.2.4 | cat
                     envVariables:
                       TERM: dumb
                       OPAMYES: "true"
