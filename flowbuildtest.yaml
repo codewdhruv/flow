@@ -77,7 +77,7 @@ pipeline:
                     command: |-
                       #!/bin/bash -eo pipefail
                       .circleci/opam_init.sh
-                      opam install ounit2.2.2.4 | cat
+                      opam install ounit2.2.2.4 
                     envVariables:
                       TERM: dumb
                       OPAMYES: "true"
