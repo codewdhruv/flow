@@ -28,6 +28,14 @@ pipeline:
                     shell: Sh
                     command: |
                       .circleci/make_opam_cachebreaker.sh > .circleci/opamcachebreaker
+              - step:
+                  type: Run
+                  name: Init opam
+                  identifier: Init_opam
+                  spec:
+                    shell: Sh
+                    command: |
+                      .circleci/opam_init.sh
   properties:
     ci:
       codebase:
