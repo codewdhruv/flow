@@ -8,7 +8,6 @@ pipeline:
     - stage:
         name: ounit_test_linux
         identifier: ounit_test_linux
-        description: ""
         type: CI
         spec:
           cloneCodebase: true
@@ -104,6 +103,8 @@ pipeline:
                   when:
                     stageStatus: All
                   failureStrategies: []
+          sharedPaths:
+            - /flow/
   properties:
     ci:
       codebase:
