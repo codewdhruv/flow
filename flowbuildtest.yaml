@@ -30,12 +30,62 @@ pipeline:
                       .circleci/make_opam_cachebreaker.sh > .circleci/opamcachebreaker
               - step:
                   type: Run
+                  name: Install opam
+                  identifier: Install_opam
+                  spec:
+                    shell: Sh
+                    command: |
+                      bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
+              - step:
+                  type: Run
                   name: Init opam
                   identifier: Init_opam
                   spec:
                     shell: Sh
                     command: |
                       .circleci/opam_init.sh
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
+              - step:
+                  type: Run
+                  name: install deps from opam
+                  identifier: install_deps_from_opam
+                  spec:
+                    shell: Sh
+                    command: |-
+                      #!/bin/bash -eo pipefail
+                      make deps
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
+              - step:
+                  type: Run
+                  name: Install extra deps from opam
+                  identifier: Install_extra_deps_from_opam
+                  spec:
+                    shell: Sh
+                    command: |-
+                      #!/bin/bash -eo pipefail
+                      opam install ounit2.2.2.4 | cat
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
+              - step:
+                  type: Run
+                  name: Run tests
+                  identifier: Run_tests
+                  spec:
+                    shell: Sh
+                    command: |-
+                      #!/bin/bash -eo pipefail
+                      opam exec -- make ounit-tests-ci
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
   properties:
     ci:
       codebase:
