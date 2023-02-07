@@ -27,7 +27,7 @@ pipeline:
                     connectorRef: harnessdocker
                     image: flowtype/flow-ci:linux-x86_64
                     shell: Sh
-                    command: |-
+                    command: |+
                       make print-switch
                       make print-jsoo-version
                       opam --version
@@ -36,12 +36,6 @@ pipeline:
                       cat flow_parser.opam
                       cat .circleci/config.yml
 
-                      if [ ! -f ~/.opam/from_cache ]; then
-                        rm -rf ~/.opam
-                        opam init --bare --disable-sandboxing --no-setup --yes
-                      fi
-
-                      opam switch create . ocaml-base-compiler.4.14.0 --deps-only --yes
                     envVariables:
                       TERM: dumb
                       OPAMYES: "true"
@@ -84,6 +78,7 @@ pipeline:
                         opam init --bare --disable-sandboxing --no-setup --yes
                       fi
 
+                      cd ..
                       opam switch create . ocaml-base-compiler.4.14.0 --deps-only --yes
                     envVariables:
                       TERM: dumb
