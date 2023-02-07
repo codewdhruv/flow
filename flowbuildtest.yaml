@@ -45,6 +45,9 @@ pipeline:
                     envVariables:
                       TERM: dumb
                       OPAMYES: "true"
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
               - step:
                   type: Run
                   name: Init opam
