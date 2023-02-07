@@ -30,6 +30,9 @@ pipeline:
                     shell: Sh
                     command: |
                       .circleci/make_opam_cachebreaker.sh > .circleci/opamcachebreaker
+                    envVariables:
+                      TERM: dumb
+                      OPAMYES: "true"
               - step:
                   type: Run
                   name: Install opam
@@ -40,6 +43,9 @@ pipeline:
                     shell: Sh
                     command: |
                       bash -c "sh <(curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)"
+                    envVariables:
+                      TERM: dumb
+                      OPAMYES: "true"
                   when:
                     stageStatus: All
                   failureStrategies: []
@@ -53,6 +59,9 @@ pipeline:
                     shell: Sh
                     command: |
                       .circleci/opam_init.sh
+                    envVariables:
+                      TERM: dumb
+                      OPAMYES: "true"
                   when:
                     stageStatus: All
                   failureStrategies: []
@@ -67,6 +76,9 @@ pipeline:
                     command: |-
                       #!/bin/bash -eo pipefail
                       make deps
+                    envVariables:
+                      TERM: dumb
+                      OPAMYES: "true"
                   when:
                     stageStatus: All
                   failureStrategies: []
@@ -81,6 +93,9 @@ pipeline:
                     command: |-
                       #!/bin/bash -eo pipefail
                       opam install ounit2.2.2.4 | cat
+                    envVariables:
+                      TERM: dumb
+                      OPAMYES: "true"
                   when:
                     stageStatus: All
                   failureStrategies: []
@@ -95,6 +110,9 @@ pipeline:
                     command: |-
                       #!/bin/bash -eo pipefail
                       opam exec -- make ounit-tests-ci
+                    envVariables:
+                      TERM: dumb
+                      OPAMYES: "true"
                   when:
                     stageStatus: All
                   failureStrategies: []
