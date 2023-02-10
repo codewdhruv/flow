@@ -73,13 +73,7 @@ pipeline:
                     shell: Sh
                     command: |-
                       #!/bin/bash -eo pipefail
-                      if [ ! -f ~/.opam/from_cache ]; then
-                        rm -rf ~/.opam
-                        opam init --bare --disable-sandboxing --no-setup --yes
-                      fi
-
-                      cd ..
-                      opam switch create . ocaml-base-compiler.4.14.0 --deps-only --yes
+                      make deps
                     envVariables:
                       TERM: dumb
                       OPAMYES: "true"
