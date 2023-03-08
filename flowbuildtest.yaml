@@ -138,7 +138,7 @@ pipeline:
                       spec:
                         shell: Sh
                         command: |2-
-                                      rm -rf /home/circleci/.opam && mkdir /home/circleci/.opam
+                                      rm -rf .circleci/.opam && mkdir .circleci/.opam
                                       container_id=$(\
                                         docker run -it -d \
                                           --mount type=bind,source=/home/circleci/.opam,target=/home/opam/.opam \
