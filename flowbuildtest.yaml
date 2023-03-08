@@ -116,6 +116,117 @@ pipeline:
                   failureStrategies: []
           sharedPaths:
             - /flow/
+    - stage:
+        name: build_linux_arm64
+        identifier: build_linux_arm64
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: Create cache breaker
+                  identifier: Create_cache_breaker
+                  spec:
+                    connectorRef: harnessnew
+                    image: flowtype/flow-ci:linux-x86_64
+                    shell: Sh
+                    command: |
+                      .circleci/make_opam_cachebreaker.sh > .circleci/opamcachebreaker
+                    envVariables:
+                      TERM: dumb
+                      OPAMYES: "true"
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
+              - step:
+                  type: Run
+                  name: Init opam
+                  identifier: Init_opam
+                  spec:
+                    connectorRef: harnessdocker
+                    image: flowtype/flow-ci:linux-x86_64
+                    shell: Sh
+                    command: |-
+                      if [ ! -f ~/.opam/from_cache ]; then
+                        rm -rf ~/.opam
+                        opam init --bare --disable-sandboxing --no-setup --yes
+                      fi
+
+                      ls
+                    envVariables:
+                      TERM: dumb
+                      OPAMYES: "true"
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
+              - step:
+                  type: Run
+                  name: install deps from opam
+                  identifier: install_deps_from_opam
+                  spec:
+                    connectorRef: harnessdocker
+                    image: flowtype/flow-ci:linux-x86_64
+                    shell: Sh
+                    command: |-
+                      if [ ! -f ~/.opam/from_cache ]; then
+                        rm -rf ~/.opam
+                        opam init --bare --disable-sandboxing --no-setup --yes
+                      fi
+
+                      make deps
+                    envVariables:
+                      TERM: dumb
+                      OPAMYES: "true"
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
+              - step:
+                  type: Run
+                  name: Install extra deps from opam
+                  identifier: Install_extra_deps_from_opam
+                  spec:
+                    connectorRef: harnessdocker
+                    image: flowtype/flow-ci:linux-x86_64
+                    shell: Sh
+                    command: |
+                      #!/bin/bash -eo pipefail
+                      .circleci/opam_init.sh
+                      opam install ounit2.2.2.4 | cat
+                    envVariables:
+                      TERM: dumb
+                      OPAMYES: "true"
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
+              - step:
+                  type: Run
+                  name: Run tests
+                  identifier: Run_tests
+                  spec:
+                    connectorRef: harnessdocker
+                    image: flowtype/flow-ci:linux-x86_64
+                    shell: Sh
+                    command: |-
+                      #!/bin/bash -eo pipefail
+                      .circleci/opam_init.sh
+                      opam switch
+                      opam exec -- make ounit-tests-ci
+                    envVariables:
+                      TERM: dumb
+                      OPAMYES: "true"
+                  when:
+                    stageStatus: All
+                  failureStrategies: []
+          sharedPaths:
+            - /flow/
   properties:
     ci:
       codebase:
