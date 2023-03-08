@@ -132,6 +132,27 @@ pipeline:
             steps:
               - step:
                   type: Run
+                  name: Start Docker image
+                  identifier: Start_Docker_image
+                  spec:
+                    connectorRef: harnessnew
+                    image: ubuntu-2004:202101-01
+                    shell: Sh
+                    command: |2-
+                                  rm -rf /home/circleci/.opam && mkdir /home/circleci/.opam
+                                  container_id=$(\
+                                    docker run -it -d \
+                                      --mount type=bind,source=/home/circleci/.opam,target=/home/opam/.opam \
+                                      --mount type=bind,source=/home/circleci/flow,target=/home/opam/flow \
+                                      flowtype/flow-ci:linux-arm64 \
+                                      /bin/bash \
+                                  )
+                                  echo "export CONTAINER_ID=$container_id" >> $BASH_ENV
+                    envVariables:
+                      TERM: dumb
+                      OPAMYES: "true"
+              - step:
+                  type: Run
                   name: Create cache breaker
                   identifier: Create_cache_breaker
                   spec:
