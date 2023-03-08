@@ -139,7 +139,7 @@ pipeline:
                         connectorRef: harnessnew
                         image: flowtype/flow-ci:linux-arm64
                         shell: Sh
-                        command: ech "flowtype/flow-ci:linux-arm6 pull successfull"
+                        command: echo "flowtype/flow-ci:linux-arm6 pull successfull"
                         envVariables:
                           TERM: dumb
                           OPAMYES: "true"
@@ -158,7 +158,6 @@ pipeline:
                           gcc -dumpfullversion -dumpversion
                           cat flowtype.opam
                           cat flow_parser.opam
-                          cat .circleci/config.yml
                         envVariables:
                           TERM: dumb
                           OPAMYES: "true"
