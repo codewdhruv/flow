@@ -136,17 +136,10 @@ pipeline:
                       name: Start Docker image
                       identifier: Start_Docker_image
                       spec:
+                        connectorRef: harnessnew
+                        image: flowtype/flow-ci:linux-arm64
                         shell: Sh
-                        command: |2-
-                                      rm -rf .circleci/.opam && mkdir .circleci/.opam
-                                      container_id=$(\
-                                        docker run -it -d \
-                                          --mount type=bind,source= .circleci/.opam,target= /opam/.opam \
-                                          --mount type=bind,source= .circleci/flow,target= /opam/flow \
-                                          flowtype/flow-ci:linux-arm64 \
-                                          /bin/bash \
-                                      )
-                                      echo "export CONTAINER_ID=$container_id" >> $BASH_ENV
+                        command: ech "flowtype/flow-ci:linux-arm6 pull successfull"
                         envVariables:
                           TERM: dumb
                           OPAMYES: "true"
