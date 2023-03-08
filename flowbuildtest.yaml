@@ -141,8 +141,8 @@ pipeline:
                                       rm -rf .circleci/.opam && mkdir .circleci/.opam
                                       container_id=$(\
                                         docker run -it -d \
-                                          --mount type=bind,source=/home/circleci/.opam,target=/home/opam/.opam \
-                                          --mount type=bind,source=/home/circleci/flow,target=/home/opam/flow \
+                                          --mount type=bind,source= .circleci/.opam,target= /opam/.opam \
+                                          --mount type=bind,source= .circleci/flow,target= /opam/flow \
                                           flowtype/flow-ci:linux-arm64 \
                                           /bin/bash \
                                       )
