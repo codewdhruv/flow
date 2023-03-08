@@ -148,8 +148,6 @@ pipeline:
                       name: Create cache breaker
                       identifier: Create_cache_breaker
                       spec:
-                        connectorRef: harnessnew
-                        image: flowtype/flow-ci:linux-x86_64
                         shell: Sh
                         command: |-
                           make print-switch
