@@ -237,9 +237,38 @@ pipeline:
                       failureStrategies: []
               sharedPaths:
                 - /flow/
+        - stage:
+            name: build_linux
+            identifier: build_linux
+            description: ""
+            type: CI
+            spec:
+              cloneCodebase: true
+              platform:
+                os: Linux
+                arch: Amd64
+              runtime:
+                type: Cloud
+                spec: {}
+              execution:
+                steps:
+                  - step:
+                      type: Run
+                      name: Create cache breaker
+                      identifier: Create_cache_breaker
+                      spec:
+                        connectorRef: harnessnew
+                        image: flowtype/flow-ci:linux-x86_64
+                        shell: Sh
+                        command: |
+                          .circleci/make_opam_cachebreaker.sh >> .circleci/opamcachebreaker
+                        envVariables:
+                          TERM: dumb
+                          OPAMYES: "true"
   properties:
     ci:
       codebase:
         connectorRef: gitconnectordhruba
         repoName: flow
         build: <+input>
+  allowStageExecutions: true
