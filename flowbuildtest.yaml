@@ -261,6 +261,9 @@ pipeline:
                         image: flowtype/flow-ci:linux-x86_64
                         shell: Sh
                         command: |
+                          chown -R $USER:$USER .circleci/
+
+
                           .circleci/make_opam_cachebreaker.sh >> .circleci/opamcachebreaker
                         envVariables:
                           TERM: dumb
