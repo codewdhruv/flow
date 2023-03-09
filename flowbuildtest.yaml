@@ -260,7 +260,7 @@ pipeline:
                         connectorRef: harnessnew
                         image: flowtype/flow-ci:linux-x86_64
                         shell: Sh
-                        command: chmod 777 .circleci
+                        command: .harness/make_opam_cachebreaker.sh > .harness/opamcachebreaker
                         envVariables:
                           TERM: dumb
                           OPAMYES: "true"
