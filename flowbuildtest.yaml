@@ -294,7 +294,9 @@ pipeline:
                         connectorRef: harnessnew
                         image: flowtype/flow-ci:linux-x86_64
                         shell: Sh
-                        command: sudo make deps-js
+                        command: |-
+                          sudo opam init
+                          sudo make deps-js
                       when:
                         stageStatus: All
                       failureStrategies: []
