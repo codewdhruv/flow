@@ -274,7 +274,7 @@ pipeline:
                         connectorRef: harnessnew
                         image: flowtype/flow-ci:linux-x86_64
                         shell: Sh
-                        command: |-
+                        command: |+
 
                           if [ ! -f /.opam/from_cache ]; then
                             rm -rf /.opam
@@ -283,7 +283,36 @@ pipeline:
 
                           sudo make deps
 
-                          sudo make deps-js
+                      when:
+                        stageStatus: All
+                      failureStrategies: []
+                  - step:
+                      type: Run
+                      name: Run_5
+                      identifier: Run_5
+                      spec:
+                        connectorRef: harnessnew
+                        image: flowtype/flow-ci:linux-x86_64
+                        shell: Sh
+                        command: sudo make deps-js
+                      when:
+                        stageStatus: All
+                      failureStrategies: []
+                  - step:
+                      type: Run
+                      name: Run_4
+                      identifier: Run_4
+                      spec:
+                        connectorRef: harnessnew
+                        image: flowtype/flow-ci:linux-x86_64
+                        shell: Sh
+                        command: |
+                          sudo touch /.opam/from_cache
+
+                          sudo opam exec -- make bin/flow dist/flow.zip
+                          sudo mkdir -p bin/linux && cp bin/flow bin/linux/flow
+
+                          sudo opam exec -- make -C src/parser dist/libflowparser.zip
                       when:
                         stageStatus: All
                       failureStrategies: []
