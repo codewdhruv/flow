@@ -336,6 +336,9 @@ pipeline:
                         shell: Sh
                         command: |-
                           #!/bin/bash -eo pipefail
+                          eval $(opam env)
+
+                          sudo opam init
                           sudo ./runtests.sh bin/linux/flow | cat
                       when:
                         stageStatus: All
