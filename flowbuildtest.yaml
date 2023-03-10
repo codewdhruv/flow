@@ -272,6 +272,8 @@ pipeline:
                       name: Init opam
                       identifier: Init_opam
                       spec:
+                        connectorRef: harnessnew
+                        image: flowtype/flow-ci:linux-x86_64
                         shell: Sh
                         command: .circleci/opam_init.sh
                       when:
