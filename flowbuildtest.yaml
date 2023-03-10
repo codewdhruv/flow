@@ -281,7 +281,7 @@ pipeline:
 
                           make deps-js
 
-                          touch ~/.opam/from_cache
+                          touch /.opam/from_cache
 
                           opam exec -- make bin/flow dist/flow.zip
                           mkdir -p bin/linux && cp bin/flow bin/linux/flow
@@ -305,7 +305,7 @@ pipeline:
                         stageStatus: All
                       failureStrategies: []
               sharedPaths:
-                - /harness/flow/
+                - harness/flow/
   properties:
     ci:
       codebase:
