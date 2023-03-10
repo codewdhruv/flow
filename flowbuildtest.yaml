@@ -290,6 +290,28 @@ pipeline:
                       failureStrategies: []
                   - step:
                       type: Run
+                      name: Build and test
+                      identifier: build_and_test
+                      spec:
+                        connectorRef: harnessnew
+                        image: flowtype/flow-ci:linux-x86_64
+                        shell: Sh
+                        command: |-
+
+                          if [ ! -f /.opam/from_cache ]; then
+                            rm -rf /.opam
+                            sudo opam init --bare --disable-sandboxing --no-setup --yes
+                          fi
+
+                          sudo make deps
+                          eval $(opam env)
+
+                          sudo opam init
+                      when:
+                        stageStatus: All
+                      failureStrategies: []
+                  - step:
+                      type: Run
                       name: Run_5
                       identifier: Run_5
                       spec:
