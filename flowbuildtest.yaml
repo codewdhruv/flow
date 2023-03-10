@@ -275,6 +275,8 @@ pipeline:
                         image: flowtype/flow-ci:linux-x86_64
                         shell: Sh
                         command: |
+                          cd flow
+
                           .circleci/opam_init.sh
                           make deps
 
