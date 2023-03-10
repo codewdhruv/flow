@@ -267,6 +267,16 @@ pipeline:
                         envVariables:
                           TERM: dumb
                           OPAMYES: "true"
+                  - step:
+                      type: Run
+                      name: Init opam
+                      identifier: Init_opam
+                      spec:
+                        shell: Sh
+                        command: .circleci/opam_init.sh
+                      when:
+                        stageStatus: All
+                      failureStrategies: []
   properties:
     ci:
       codebase:
