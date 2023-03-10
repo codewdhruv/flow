@@ -297,12 +297,12 @@ pipeline:
                           #!/bin/bash -eo pipefail
                           eval $(opam env)
                           sudo opam init --bare --disable-sandboxing --no-setup --yes
-                          sudo opam exec -- make bin/flow dist/flow.zip
-                          sudo mkdir -p bin/linux && cp bin/flow bin/linux/flow
+                          sudo opam exec -- make harness/flow/bin/flow dist/flow.zip
+                          sudo mkdir -p harness/flow/bin/linux && cp harness/flow/bin/flow harness/flow/bin/linux/flow
 
                           sudo opam exec -- make -C src/parser dist/libflowparser.zip
 
-                          sudo ./runtests.sh bin/linux/flow | cat
+                          sudo ./runtests.sh harness/flow/bin/linux/flow | cat
                       when:
                         stageStatus: All
                       failureStrategies: []
