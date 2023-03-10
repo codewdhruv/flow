@@ -279,6 +279,20 @@ pipeline:
                       when:
                         stageStatus: All
                       failureStrategies: []
+                  - step:
+                      type: Run
+                      name: Install deps from opam
+                      identifier: Install_deps_from_opam
+                      spec:
+                        connectorRef: harnessnew
+                        image: flowtype/flow-ci:linux-x86_64
+                        shell: Sh
+                        command: |-
+                          #!/bin/bash -eo pipefail
+                          make deps
+                      when:
+                        stageStatus: All
+                      failureStrategies: []
   properties:
     ci:
       codebase:
