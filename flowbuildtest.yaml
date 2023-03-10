@@ -282,9 +282,6 @@ pipeline:
                           fi
 
                           sudo make deps
-                          eval $(opam env)
-
-                          sudo opam init
                       when:
                         stageStatus: All
                       failureStrategies: []
@@ -298,6 +295,7 @@ pipeline:
                         shell: Sh
                         command: |-
                           #!/bin/bash -eo pipefail
+                          eval $(opam env)
                           sudo opam init
                           sudo opam exec -- make bin/flow dist/flow.zip
                           sudo mkdir -p bin/linux && cp bin/flow bin/linux/flow
