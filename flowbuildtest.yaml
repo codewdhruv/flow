@@ -277,7 +277,7 @@ pipeline:
                         command: |
 
                           .circleci/opam_init.sh
-                          make deps
+                          sudo make deps
 
                           make deps-js
 
