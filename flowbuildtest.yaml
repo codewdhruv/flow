@@ -274,7 +274,7 @@ pipeline:
                         connectorRef: harnessnew
                         image: flowtype/flow-ci:linux-x86_64
                         shell: Sh
-                        command: |+
+                        command: |-
 
                           if [ ! -f /.opam/from_cache ]; then
                             rm -rf /.opam
@@ -282,7 +282,7 @@ pipeline:
                           fi
 
                           sudo make deps
-
+                          eval $(opam env)
                       when:
                         stageStatus: All
                       failureStrategies: []
