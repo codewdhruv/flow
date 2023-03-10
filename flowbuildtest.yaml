@@ -297,16 +297,14 @@ pipeline:
                         image: flowtype/flow-ci:linux-x86_64
                         shell: Sh
                         command: |-
-
-                          if [ ! -f /.opam/from_cache ]; then
-                            rm -rf /.opam
-                            sudo opam init --bare --disable-sandboxing --no-setup --yes
-                          fi
-
-                          sudo make deps
-                          eval $(opam env)
-
+                          #!/bin/bash -eo pipefail
                           sudo opam init
+                          sudo opam exec -- make bin/flow dist/flow.zip
+                          sudo mkdir -p bin/linux && cp bin/flow bin/linux/flow
+
+                          sudo opam exec -- make -C src/parser dist/libflowparser.zip
+
+                          sudo ./runtests.sh bin/linux/flow | cat
                       when:
                         stageStatus: All
                       failureStrategies: []
