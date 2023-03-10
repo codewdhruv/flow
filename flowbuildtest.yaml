@@ -285,12 +285,12 @@ pipeline:
 
                           sudo make deps-js
 
-                          touch /.opam/from_cache
+                          sudo touch /.opam/from_cache
 
-                          opam exec -- make bin/flow dist/flow.zip
-                          mkdir -p bin/linux && cp bin/flow bin/linux/flow
+                          sudo opam exec -- make bin/flow dist/flow.zip
+                          sudo mkdir -p bin/linux && cp bin/flow bin/linux/flow
 
-                          opam exec -- make -C src/parser dist/libflowparser.zip
+                          sudo opam exec -- make -C src/parser dist/libflowparser.zip
                       when:
                         stageStatus: All
                       failureStrategies: []
