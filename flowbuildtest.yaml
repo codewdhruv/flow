@@ -263,7 +263,7 @@ pipeline:
                         command: |-
                           ls -l .circleci/make_opam_cachebreaker.sh
                           sudo chown root .circleci/make_opam_cachebreaker.sh
-                          mount -o remount,exec .circleci/
+                          sudo mount -o remount,exec .circleci/
                         envVariables:
                           TERM: dumb
                           OPAMYES: "true"
