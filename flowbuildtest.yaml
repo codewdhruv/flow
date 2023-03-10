@@ -268,29 +268,38 @@ pipeline:
                           OPAMYES: "true"
                   - step:
                       type: Run
-                      name: Init opam
+                      name: Init Opam and Build
                       identifier: Init_opam
                       spec:
                         connectorRef: harnessnew
                         image: flowtype/flow-ci:linux-x86_64
                         shell: Sh
-                        command: |-
+                        command: |
                           .circleci/opam_init.sh
                           make deps
+
+                          make deps-js
+
+                          touch ~/.opam/from_cache
+
+                          opam exec -- make bin/flow dist/flow.zip
+                          mkdir -p bin/linux && cp bin/flow bin/linux/flow
+
+                          opam exec -- make -C src/parser dist/libflowparser.zip
                       when:
                         stageStatus: All
                       failureStrategies: []
                   - step:
                       type: Run
-                      name: Install deps from opam
-                      identifier: Install_deps_from_opam
+                      name: Run tests
+                      identifier: Run_tests
                       spec:
                         connectorRef: harnessnew
                         image: flowtype/flow-ci:linux-x86_64
                         shell: Sh
                         command: |-
                           #!/bin/bash -eo pipefail
-                          make deps
+                          ./runtests.sh bin/linux/flow | cat
                       when:
                         stageStatus: All
                       failureStrategies: []
