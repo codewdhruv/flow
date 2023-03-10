@@ -304,7 +304,7 @@ pipeline:
                         shell: Sh
                         command: |-
                           #!/bin/bash -eo pipefail
-                          ./runtests.sh bin/linux/flow | cat
+                          sudo ./runtests.sh bin/linux/flow | cat
                       when:
                         stageStatus: All
                       failureStrategies: []
