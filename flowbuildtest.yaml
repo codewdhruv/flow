@@ -240,7 +240,6 @@ pipeline:
         - stage:
             name: build_linux
             identifier: build_linux
-            description: ""
             type: CI
             spec:
               cloneCodebase: true
@@ -295,6 +294,8 @@ pipeline:
                       when:
                         stageStatus: All
                       failureStrategies: []
+              sharedPaths:
+                - /flow/
   properties:
     ci:
       codebase:
