@@ -276,10 +276,14 @@ pipeline:
                         shell: Sh
                         command: |
 
-                          .circleci/opam_init.sh
+                          if [ ! -f /.opam/from_cache ]; then
+                            rm -rf /.opam
+                            sudo opam init --bare --disable-sandboxing --no-setup --yes
+                          fi
+
                           sudo make deps
 
-                          make deps-js
+                          sudo make deps-js
 
                           touch /.opam/from_cache
 
