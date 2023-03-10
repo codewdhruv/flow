@@ -296,7 +296,7 @@ pipeline:
                         command: |-
                           #!/bin/bash -eo pipefail
                           eval $(opam env)
-                          sudo opam init
+                          sudo opam init --bare --disable-sandboxing --no-setup --yes
                           sudo opam exec -- make bin/flow dist/flow.zip
                           sudo mkdir -p bin/linux && cp bin/flow bin/linux/flow
 
