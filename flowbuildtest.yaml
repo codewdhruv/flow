@@ -305,7 +305,7 @@ pipeline:
                         stageStatus: All
                       failureStrategies: []
               sharedPaths:
-                - /
+                - /flow/.circleci
   properties:
     ci:
       codebase:
