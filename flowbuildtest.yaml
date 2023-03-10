@@ -283,6 +283,8 @@ pipeline:
 
                           sudo make deps
                           eval $(opam env)
+
+                          sudo opam init
                       when:
                         stageStatus: All
                       failureStrategies: []
@@ -295,6 +297,8 @@ pipeline:
                         image: flowtype/flow-ci:linux-x86_64
                         shell: Sh
                         command: |-
+                          eval $(opam env)
+
                           sudo opam init
                           sudo make deps-js
                       when:
@@ -309,6 +313,10 @@ pipeline:
                         image: flowtype/flow-ci:linux-x86_64
                         shell: Sh
                         command: |
+                          eval $(opam env)
+
+                          sudo opam init
+
                           sudo touch /.opam/from_cache
 
                           sudo opam exec -- make bin/flow dist/flow.zip
