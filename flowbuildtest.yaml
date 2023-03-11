@@ -362,7 +362,7 @@ pipeline:
                         stageStatus: All
                       failureStrategies: []
               sharedPaths:
-                - /harness/flow
+                - /flow/
   properties:
     ci:
       codebase:
