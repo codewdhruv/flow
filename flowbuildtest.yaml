@@ -1,5 +1,5 @@
 pipeline:
-  name: flow-build-test
+  name: build-test
   identifier: flowbuildtest
   projectIdentifier: NgLabs
   orgIdentifier: default
@@ -261,7 +261,7 @@ pipeline:
                         shell: Sh
                         command: |
                           ls -l .circleci/make_opam_cachebreaker.sh
-                          sudo chmod 6777 .circleci/make_opam_cachebreaker.sh
+                          sudo chmod -R 777 .circleci/
                           .circleci/make_opam_cachebreaker.sh > .circleci/opamcachebreaker
                         envVariables:
                           TERM: dumb
