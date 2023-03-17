@@ -298,7 +298,7 @@ pipeline:
                           eval $(opam env)
                           sudo opam init --bare --disable-sandboxing --no-setup --yes
                           sudo opam exec -- make bin/flow dist/flow.zip
-                          sudo chmod -R 777 bin/
+                          sudo chmod -R 777 bin/linux/
                           sudo mkdir -p bin/linux && cp bin/flow bin/linux/flow
 
                           sudo opam exec -- make -C src/parser dist/libflowparser.zip
